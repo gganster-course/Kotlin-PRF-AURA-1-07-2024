@@ -17,48 +17,11 @@
         android:textColor="@color/c950"
         android:textSize="24sp" />
 
-    <LinearLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.prfaurajuin.ui.Todo_List_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="120dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="100dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/titleTaskInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:hint="hint" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/submitTask"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-100dp"
-            app:icon="@android:drawable/ic_menu_add"
-            app:iconSize="30dp"
-            app:iconTint="#FFFFFF"
-            app:iconTintMode="src_in" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/taskError"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#FF0000" />
-
-    <ListView
-        android:id="@+id/taskListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>
