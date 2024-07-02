@@ -11,8 +11,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.prfaurajuin.R
 import com.example.prfaurajuin.Task
+import com.example.prfaurajuin.adapter.TaskAdapter
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -20,12 +23,12 @@ class Todo_List_fragment : Fragment() {
     private lateinit var titleTaskInput : TextInputEditText
     private lateinit var submitTask : Button
     private lateinit var taskError : TextView
-    private lateinit var taskListView : ListView
+    private lateinit var taskListView : RecyclerView
 
-    private var taskListData = mutableListOf<Task>()
+    private var taskListData = mutableListOf<Task>(Task(1, "hello"), Task(2, "world"), Task(1, "hello"), Task(2, "world"), Task(1, "hello"), Task(2, "world"))
     private var idCounter = 0
 
-    private lateinit var taskListViewAdapter : ArrayAdapter<String>
+    private lateinit var taskListViewAdapter : TaskAdapter
 
     private fun handleSubmit() {
         val title : String = titleTaskInput.text.toString()
@@ -36,9 +39,7 @@ class Todo_List_fragment : Fragment() {
             val newTask : Task = Task(idCounter++, title)
 
             taskListData.add(newTask)
-            taskListViewAdapter.clear()
-            taskListViewAdapter.addAll(taskListData.map { it.title })
-            taskListViewAdapter.notifyDataSetChanged()
+            taskListViewAdapter.notifyItemChanged(taskListData.size - 1)
 
             titleTaskInput.setText(null)
         } else {
@@ -60,13 +61,10 @@ class Todo_List_fragment : Fragment() {
         titleTaskInput = view.findViewById(R.id.titleTaskInput)
         submitTask = view.findViewById(R.id.submitTask)
         taskError = view.findViewById(R.id.taskError)
-        taskListView = view.findViewById(R.id.taskListView)
+        taskListView = view.findViewById(R.id.taskRecyclerView)
 
-        taskListViewAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            taskListData.map { it.title }
-        )
+        taskListViewAdapter = TaskAdapter(taskListData)
+        taskListView.layoutManager = LinearLayoutManager(requireContext())
         taskListView.adapter = taskListViewAdapter
 
         taskError.visibility = android.view.View.INVISIBLE
